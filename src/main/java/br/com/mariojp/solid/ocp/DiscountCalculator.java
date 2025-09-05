@@ -3,15 +3,14 @@ package br.com.mariojp.solid.ocp;
 import java.util.Map;
 
 public class DiscountCalculator {
+    private Map<String, DiscountPolicy> politica;
 
-    private final Map<CustomerType, DiscountPolicy> policies;
-
-    public DiscountCalculator(Map<CustomerType, DiscountPolicy> policies) {
-        this.policies = policies;
+    public DiscountCalculator(Map<String, DiscountPolicy> policies) {
+        this.politica = policies;
     }
 
-    public double apply(double amount, CustomerType type) {
-        DiscountPolicy policy = policies.getOrDefault(type, a -> a);
+    public double calculate(String customerType, double amount) {
+        DiscountPolicy policy = politica.getOrDefault(customerType, amount1 -> amount1);
         return policy.apply(amount);
     }
 }
